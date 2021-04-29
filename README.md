@@ -1,6 +1,6 @@
 # Fiatee
 
-I purchased a Fiat 500e and was sad to see the lack of projects for the car and openness like with the Nissan Leaf. My goal was to locate CAN messages on the two CAN buses for simple monitoring such as SOC, estimated range, charging status, and door status. I then wanted to get into remote commands for lock/unlock and climate controls.
+I purchased a Fiat 500e and was sad to see the lack of projects for the car and openness like with the Nissan Leaf. My goal was to locate CAN messages on the two CAN buses for simple monitoring such as SOC, estimated range, charging status, and door status. I then wanted to get into remote commands for lock/unlock and climate controls. With the ESP32 you technically have a built-in CAN interface, but it was easier for me to just use external CAN modules.
 
 
 
