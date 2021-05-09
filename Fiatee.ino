@@ -45,16 +45,8 @@ void lockCar() {
   byte data[8] = {};
 
   data[0] = 0x6C;
-  data[1] = 0x00;
-  data[2] = 0x00;
-  data[3] = 0x00;
-  data[4] = 0x00;
-  data[5] = 0x00;
-  data[6] = 0x00;
-  data[7] = 0x00;
-
   CAN0.sendMsgBuf(canId, 1, 8, data);
-  delay(1000);
+  delay(100);
   CAN0.sendMsgBuf(canId, 1, 8, data);
 }
 
@@ -63,34 +55,52 @@ void unlockCar() {
   byte data[8] = {};
   
   data[0] = 0x74;
-  data[1] = 0x00;
-  data[2] = 0x00;
-  data[3] = 0x00;
-  data[4] = 0x00;
-  data[5] = 0x00;
-  data[6] = 0x00;
-  data[7] = 0x00;
 
   CAN0.sendMsgBuf(canId, 1, 8, data);
-  delay(1000);
+  delay(100);
   CAN0.sendMsgBuf(canId, 1, 8, data);
+}
+
+void beep() {
+  INT32U canId = 0xC41401F;
+  byte data[8] = {};
+  
+  data[0] = 0x2;
+
+  CAN0.sendMsgBuf(canId, 1, 8, data);
+  delay(100);
+  CAN0.sendMsgBuf(canId, 1, 8, data);
+}
+
+void chargingOff() {
+  INT32U canId = 0xC41401F;
+  byte data[8] = {};
+  
+  data[0] = 0x40;
+  CAN0.sendMsgBuf(canId, 1, 8, data);
+  delay(100);
+  CAN0.sendMsgBuf(canId, 1, 8, data);
+}
+
+void chargingOn() {
+  INT32U canId = 0xC41401F;
+  byte data[8] = {};
+  
+  data[0] = 0x20;
+  CAN0.sendMsgBuf(canId, 1, 8, data);
+  delay(100);
+  CAN0.sendMsgBuf(canId, 1, 8, data); 
 }
 
 void climateOff() {
   INT32U canId = 0xE194031;
   byte data[8] = {};
   
-  data[0] = 0x74;
-  data[1] = 0x00;
-  data[2] = 0x00;
-  data[3] = 0x00;
-  data[4] = 0x00;
-  data[5] = 0x00;
-  data[6] = 0x00;
-  data[7] = 0x00;
+  data[0] = 0x40;
+  data[1] = 0x64;
 
   CAN0.sendMsgBuf(canId, 1, 8, data);
-  delay(1000);
+  delay(100);
   CAN0.sendMsgBuf(canId, 1, 8, data);
 }
 
@@ -98,20 +108,13 @@ void climateOn() {
   INT32U canId = 0xE194031;
   byte data[8] = {};
   
-  data[0] = 0x40;
+  data[0] = 0x20;
   data[1] = 0x64;
-  data[2] = 0x00;
-  data[3] = 0x00;
-  data[4] = 0x00;
-  data[5] = 0x00;
-  data[6] = 0x00;
-  data[7] = 0x00;
 
   CAN0.sendMsgBuf(canId, 1, 8, data);
-  delay(1000);
+  delay(100);
   CAN0.sendMsgBuf(canId, 1, 8, data);
 }
-
 
 void loop() {
   if(!digitalRead(CAN0_INT)) {
@@ -131,8 +134,8 @@ void loop() {
     //CAN-C
     CAN1.readMsgBuf(&rxId, &len, rxBuf);      
     
-    if ((rxId & 0x1FFFFFFF) == 0x0848A046) {
-      sprintf(msgString, "0x%.2X", rxBuf[0]);
+    if ((rxId & 0x1FFFFFFF) == 0x0C10A040) {
+      sprintf(msgString, "0x%.2X", rxBuf[1]);
       dashSoc = msgString;
     }
 
